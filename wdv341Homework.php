@@ -167,7 +167,7 @@
 
         <h3><strong>Unit 13</strong></h3>
         <ul>
-            <li>13-1: Protect Form Processors</a></li>
+            <li>13-1: Protect Form Processors</li>
         </ul>
 
         <h3><strong>FINAL: Portfolio Project</strong></h3>
