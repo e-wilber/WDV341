@@ -99,18 +99,18 @@
         <ul>
             <li class="links"><a href="wdv341Homework.php">Assignment: Create WDV341 Homework Page</a></li>
             <li>1-1: Setting Up Localhost</li>
-            <li>1-2: Download Git Client & Create a Repository account</li>
+            <li class="links"><a href="GitWordDoc.docx">1-2: Download Git Client & Create a Repository account</a></li>
         </ul>
 
         <h3><strong>Unit 2</strong></h3>
         <ul>
-            <li>2-1: PHP Basics</a></li>
+        <li class="links"><a href="PHPBasics.php">2-1: PHP Basics</a></li>
             <li>PHP Basics Quiz</li>
         </ul>
 
         <h3><strong>Unit 3</strong></h3>
         <ul>
-            <li>3-1 PHP Functions</li>
+            <li class="links"><a href="PHPFunctions.php">3-1 PHP Functions</a></li>
             <li>PHP Functions Quiz</li>
         </ul>
 
@@ -167,10 +167,16 @@
 
         <h3><strong>Unit 13</strong></h3>
         <ul>
-            <li>13-1: Protect Form Processors</li>
+            <li>13-1: Protect Form Processors</a></li>
         </ul>
 
         <h3><strong>FINAL: Portfolio Project</strong></h3>
+
+        <h3><strong>Code Examples from teacher</strong></h3>
+
+        <li class="links"><a href="phpIfStatements.php">PHP If Statements</a></li>
+        <li class="links"><a href="phpBasicsnotes.php">PHP Basics</a></li>
+
     </div>
 </body>
 
