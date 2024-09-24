@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>HTML Form Processor - E. Wilber</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    h1,
+    h2 {
+      text-align: center;
+    }
+
+    form {
+      width: 600px;
+      background-color: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      margin: 0 auto;
+    }
+
+    form legend {
+      font-size: larger;
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    form p {
+      margin-bottom: 15px;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    select,
+    textarea {
+      width: calc(100% - 20px);
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    input[type="radio"],
+    input[type="checkbox"] {
+      margin-right: 10px;
+    }
+
+    textarea {
+      height: 100px;
+    }
+
+    input[type="submit"],
+    input[type="reset"] {
+      width: 48%;
+      padding: 10px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    input[type="reset"] {
+      background-color: #6c757d;
+    }
+
+    input[type="submit"]:hover,
+    input[type="reset"]:hover {
+      opacity: 0.9;
+    }
+  </style>
+
+</head>
+
+<body>
+  <h1>WDV101 Intro HTML and CSS</h1>
+  <h2>UNIT 5 - Lesson 2 Server Side Forms</h2>
+  <p>This is an example input form that will demonstrate how a form connects to a server side process.</p>
+
+  <form id="form1" name="form1" method="post" action="formHandler.php">
+    <legend>Example Form</legend>
+
+    <p>
+      <label for="first_name">First Name:</label>
+      <input type="text" name="first_name" id="first_name" />
+    </p>
+
+    <p>
+      <label for="last_name">Last Name:</label>
+      <input type="text" name="last_name" id="last_name" />
+    </p>
+
+    <p>
+      <label for="school_name">School Name:</label>
+      <input type="text" name="school_name" id="school_name" />
+    </p>
+
+    <!-- New Fields -->
+    <p>
+      <label for="email">Customer Email:</label>
+      <input type="email" name="email" id="email" required />
+    </p>
+
+    <p>
+      <label>Academic Standing:</label>
+      <input type="radio" name="academic_standing" value="High School" /> High School
+      <input type="radio" name="academic_standing" value="Freshman" /> Freshman
+      <input type="radio" name="academic_standing" value="Sophomore" /> Sophomore
+    </p>
+
+    <p>
+      <label for="program">Select Program:</label>
+      <select name="program" id="program">
+        <option value="" disabled selected>Select your program</option>
+        <option value="CIS">Computer Information Systems</option>
+        <option value="GD">Graphic Design</option>
+        <option value="WD">Web Development</option>
+      </select>
+    </p>
+
+    <p>
+      <label>Preferences:</label>
+      <input type="checkbox" name="contact_info" value="ContactMe" /> Please contact me with program information
+      <input type="checkbox" name="advisor_contact" value="ContactAdvisor" /> I would like to contact a program advisor
+    </p>
+
+    <p>
+      <label for="comments">Comments:</label>
+      <textarea name="comments" id="comments"></textarea>
+    </p>
+
+    <p>
+      <input type="submit" name="submit" value="Submit" />
+      <input type="reset" name="reset" value="Reset" />
+    </p>
+
+  </form>
+
+</body>
+
+</html>
