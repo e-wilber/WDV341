@@ -1,65 +1,69 @@
-<!DOCTYPE html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Basic Form Handler Example</title>
-</head>
-
-<body>
-<h3>Form Name-Value Pairs</h3>
 <?php
+// Get form data
+$contactName = $_POST['contactName'];
+$contactEmail = $_POST['contactEmail'];
+$contactReason = $_POST['contactReason'];
+$contactComments = $_POST['contactComments'];
+$dateOfContact = date("m/d/Y");
 
-	echo "<table border='1'>";
-	echo "<tr><th>Field Name</th><th>Value of Field</th></tr>";
-	foreach($_POST as $key => $value)
-	{
-		echo '<tr>';
-		echo '<td>',$key,'</td>';
-		echo '<td>',$value,'</td>';
-		echo "</tr>";
-	} 
-	echo "</table>";
-	echo "<p>&nbsp;</p>";
+// Prepare email to the site owner (you)
+$to = "contact@about.erinwilber.org";  // Your Heartland-hosted email address
+$subject = "New Contact Request - $contactReason";
 
-?>
-<?php
-// Retrieve form data from POST request
-$firstName = $_POST['first_name'];
-$lastName = $_POST['last_name'];
-$academicStanding = $_POST['academic_standing'];
-$selectedMajor = $_POST['program'];
-$emailAddress = $_POST['email'];
-$comments = $_POST['comments'];
+// Prepare email headers
+$headers = "MIME-Version: 1.0" . "\r\n";
+$headers .= "Content-type:text/plain;charset=UTF-8" . "\r\n";  // Use text/plain for now, can switch to text/html later
+$headers .= "From: contact@about.erinwilber.org";  // Use your domain email
 
-// Checkboxes (may not always be set)
-$contactInfo = isset($_POST['contact_info']) ? "Please contact me with program information" : "";
-$advisorContact = isset($_POST['advisor_contact']) ? "I would like to contact a program advisor" : "";
+// Email body message (plain text format)
+$message = "
+New contact request received: \n
+Name: $contactName\n
+Email: $contactEmail\n
+Reason: $contactReason\n
+Comments: $contactComments\n
+Date of Contact: $dateOfContact
+";
 
-// Display the formatted confirmation message
-echo "<p>Dear $firstName,</p>";
-
-echo "<p>Thank you for your interest in DMACC.</p>";
-
-echo "<p>We have you listed as a $academicStanding starting this fall.</p>";
-
-echo "<p>You have declared $selectedMajor as your major.</p>";
-
-echo "<p>Based upon your responses we will provide the following information in our confirmation email to you at $emailAddress.</p>";
-
-if ($contactInfo || $advisorContact) {
-    echo "<ul>";
-    if ($contactInfo) {
-        echo "<li>$contactInfo</li>";
-    }
-    if ($advisorContact) {
-        echo "<li>$advisorContact</li>";
-    }
-    echo "</ul>";
+// Send email to the site owner (you)
+if (mail($to, $subject, $message, $headers)) {
+    echo "Email sent to you successfully.";
+} else {
+    echo "Email to you failed.";
 }
 
-echo "<p>You have shared the following comments which we will review:</p>";
-
-echo "<p>$comments</p>";
-?>
-
+// Prepare confirmation email to the customer
+$confirmationSubject = "We have received your request!";
+$confirmationMessage = "
+<html>
+<head>
+  <title>Contact Confirmation</title>
+  <style>
+    body { font-family: Arial, sans-serif; }
+    h2 { color: #4CAF50; }
+  </style>
+</head>
+<body>
+  <h2>Thank you, $contactName!</h2>
+  <p>We have received your message and will get back to you shortly.</p>
+  <p><strong>Contact Details:</strong></p>
+  <p>Reason: $contactReason</p>
+  <p>Comments: $contactComments</p>
+  <p><em>Date of Contact: $dateOfContact</em></p>
+  <p>Best regards,<br>Your Company</p>
 </body>
 </html>
+";
+
+// Prepare HTML email headers for confirmation email
+$confirmationHeaders = "MIME-Version: 1.0" . "\r\n";
+$confirmationHeaders .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+$confirmationHeaders .= "From: contact@about.erinwilber.org";  // Use your domain email
+
+// Send confirmation email to the customer
+if (mail($contactEmail, $confirmationSubject, $confirmationMessage, $confirmationHeaders)) {
+    echo "Confirmation email sent to the customer.";
+} else {
+    echo "Failed to send confirmation email.";
+}
+?>
