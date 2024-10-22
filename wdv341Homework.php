@@ -116,13 +116,13 @@
 
         <h3><strong>Unit 4</strong></h3>
         <ul>
-            <li>4-1: HTML Form Processor</li>
+        <li class="links"><a href="HTMLFormProcessor/inputForm.html">4-1: HTML Form Processor</li>
         </ul>
 
         <h3><strong>Unit 5</strong></h3>
         <ul>
-            <li>5-1: Image File uploader</li>
-            <li>PROJECT: Contact Form with Email</li>
+        <li class="links"><a href="imageFileUploader/index.html">5-1: Image File uploader</li>
+        <li class="links"><a href="contactForm/contact.html">PROJECT: Contact Form with Email</li>
         </ul>
 
         <h3><strong>Unit 6</strong></h3>
@@ -133,8 +133,8 @@
 
         <h3><strong>Unit 7</strong></h3>
         <ul>
-            <li>7-1: Create selectEvents.php</li>
-            <li>7-2: Create selectOneEvent.php</li>
+            <li class="links"><a href="eventManagement/selectEvents.php">7-1: Create selectEvents.php</li>
+            <li class="links"><a href="selectOneEvent.php">7-2: Create selectOneEvent.php</li>
         </ul>
         
         <h3><strong>Unit 8</strong></h3>
