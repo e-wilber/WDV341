@@ -1,50 +1,40 @@
 <?php
-// Include the database connection
-require('dbConnect.php');
+// insertEvent.php
+include '../db-connect.php';  // Go up one directory level to include db-connect.php
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Get the form data
-    $eventName = $_POST['event_name'];
-    $eventDate = $_POST['event_date'];
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Honeypot field validation
+    if (!empty($_POST['address'])) {
+        die("Form submission failed.");
+    }
+
+    // Prepare data
+    $name = $_POST['name'];
     $description = $_POST['description'];
+    $presenter = $_POST['presenter'];
+    $date = $_POST['date'];
+    $time = $_POST['time'];
+    $dateInserted = date('Y-m-d H:i:s');  // Current date and time
 
     try {
-        // SQL INSERT query
-        $query = 'INSERT INTO events (event_name, event_date, description) VALUES (:event_name, :event_date, :description)';
+        // SQL Insert statement with PDO prepared statement
+        $sql = "INSERT INTO wdv341_events (name, description, presenter, date, time, date_inserted, date_updated)
+                VALUES (:name, :description, :presenter, :date, :time, :dateInserted, :dateUpdated)";
         
-        // Prepare the query
-        $statement = $conn->prepare($query);
-        
-        // Bind values to parameters
-        $statement->bindValue(':event_name', $eventName);
-        $statement->bindValue(':event_date', $eventDate);
-        $statement->bindValue(':description', $description);
-        
-        // Execute the query
-        $statement->execute();
-        
-        echo "<p>Event successfully added!</p>";
-        
-        // Close the statement
-        $statement->closeCursor();
-        
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':name', $name);
+        $stmt->bindParam(':description', $description);
+        $stmt->bindParam(':presenter', $presenter);
+        $stmt->bindParam(':date', $date);
+        $stmt->bindParam(':time', $time);
+        $stmt->bindParam(':dateInserted', $dateInserted);
+        $stmt->bindParam(':dateUpdated', $dateInserted);  // date_updated is the same as date_inserted for a new record
+
+        $stmt->execute();
+
+        echo "Event has been successfully added.";
     } catch (PDOException $e) {
-        // Display an error message if the query fails
-        echo "<p>Error adding event: " . $e->getMessage() . "</p>";
+        echo "Error: " . $e->getMessage();
     }
 }
 ?>
-
-<!-- HTML form to insert a new event -->
-<form action="insertEvent.php" method="POST">
-    <label for="event_name">Event Name:</label>
-    <input type="text" name="event_name" required>
-    <br>
-    <label for="event_date">Event Date (YYYY-MM-DD):</label>
-    <input type="date" name="event_date" required>
-    <br>
-    <label for="description">Description:</label>
-    <textarea name="description" required></textarea>
-    <br>
-    <input type="submit" value="Add Event">
-</form>

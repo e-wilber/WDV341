@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Input Form</title>
+</head>
+<body>
+    <h1>Enter Event Information</h1>
+    <form action="insertEvent.php" method="post">
+        <label for="name">Event Name:</label>
+        <input type="text" id="name" name="name" required><br><br>
+
+        <label for="description">Event Description:</label>
+        <textarea id="description" name="description" required></textarea><br><br>
+
+        <label for="presenter">Presenter:</label>
+        <input type="text" id="presenter" name="presenter" required><br><br>
+
+        <label for="date">Event Date:</label>
+        <input type="date" id="date" name="date" required><br><br>
+
+        <label for="time">Event Time:</label>
+        <input type="time" id="time" name="time" required><br><br>
+
+        <!-- Honeypot field for bot protection (hidden from users) -->
+        <label for="address" style="display:none;">Address:</label>
+        <input type="text" id="address" name="address" style="display:none;"><br><br>
+
+        <input type="submit" value="Submit Event">
+    </form>
+</body>
+</html>
