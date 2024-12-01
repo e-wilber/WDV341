@@ -133,7 +133,7 @@
 
         <h3><strong>Unit 7</strong></h3>
         <ul>
-            <li class="links"><a href="eventManagement/selectEvents.php">7-1: Create selectEvents.php</li>
+            <li class="links"><a href="selectEvents.php">7-1: Create selectEvents.php</li>
             <li class="links"><a href="selectOneEvent.php">7-2: Create selectOneEvent.php</li>
         </ul>
         
