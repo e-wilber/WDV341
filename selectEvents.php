@@ -1,55 +1,52 @@
 <?php
-// Include the database connection
-require('dbConnect.php'); // Ensures the database connection is established
 
-try {
-    // SQL SELECT query to pull all events
-    $query = 'SELECT * FROM events';
-    
-    // Prepare the query using the PDO connection
-    $statement = $conn->prepare($query);
-    
-    // Execute the query
-    $statement->execute();
-    
-    // Fetch all rows
-    $events = $statement->fetchAll(PDO::FETCH_ASSOC);
-    
-    // Check if events exist in the table
-    if (empty($events)) {
-        echo "<p>No events found in the database.</p>";
-    } else {
-        // Start creating the table structure
-        echo '<table border="1" cellpadding="10" cellspacing="0">';
-        echo '<thead>';
-        echo '<tr>';
-        echo '<th>Event ID</th>';
-        echo '<th>Event Name</th>';
-        echo '<th>Event Date</th>';
-        echo '<th>Description</th>';
-        echo '</tr>';
-        echo '</thead>';
-        echo '<tbody>';
-        
-        // Loop through each event and format it into a table row
-        foreach ($events as $event) {
-            echo '<tr>';
-            echo '<td>' . htmlspecialchars($event['event_id']) . '</td>';
-            echo '<td>' . htmlspecialchars($event['event_name']) . '</td>';
-            echo '<td>' . htmlspecialchars($event['event_date']) . '</td>';
-            echo '<td>' . htmlspecialchars($event['description']) . '</td>';
-            echo '</tr>';
-        }
-        
-        echo '</tbody>';
-        echo '</table>';
-    }
-    
-    // Close the statement
-    $statement->closeCursor();
-    
-} catch (PDOException $e) {
-    // Display an error message if the query fails
-    echo "<p>Error fetching events: " . $e->getMessage() . "</p>";
-}
+//to connect to a database these are the steps: (algorithm)
+
+    //1. include dbConnect.php
+    //2. create you SQL query
+    //3. prepare your pdo statement
+    //4. bind variables to the pdo statement, if any
+    //5. execute the pdo statement -run your SQL against the database
+    //6. process the results from the query
+
+//always the way to do it
+
+require 'dbConnect.php';   //access to database
+
+$sql = "SELECT events_name, events_description FROM wdv341_events";
+
+$stmt = $conn->prepare($sql); //prepared statement PDO
+
+//bind parameters= n/a
+
+$stmt->execute(); //execute the PDO prepared statement, save results in $stmt object
+
+$result = $stmt->setFetchMode(PDO::FETCH_ASSOC); // return values as an ASSOC array
+
+//$user = $stmt->fetch(); //return first row of the result - ASSOC array
+
+//echo "<p>" . $user["events_name"] . "</p>";
+//echo "<p>" . $user["events_description"] . "</p>";
+
 ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>WDV 341 Introduction to PHP</h1>
+    <h2>Assignment 7-1 selectEvents.php</h2>
+
+    <?php 
+    //loop the processes database result and outputs content as HTML table
+
+    while($eventRow = $stmt->fetch()){
+        echo "<td>" . $eventRow["events_name"] . "</td>";
+    }
+
+    ?>    
+</body>
+</html>
