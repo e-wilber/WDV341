@@ -1,48 +1,72 @@
 <?php
-// Include database connection file
-include('dbConnect.php');
 
-try {
-    // Connect to the database using PDO
-    $pdo = dbConnect();
+//Assignment 7-2 (updated code from assignment 7-1)
+//Select 1 event from table using SQL WHERE filter
 
-    // Hardcode event number for testing purposes
-    $eventNumber = 1; // Change this value for testing different events
+//to connect to a database these are the steps: (algorithm)
 
-    // SQL SELECT command using a WHERE clause to select one event
-    $sql = "SELECT event_id, event_name, event_date, event_location FROM events WHERE event_id = :eventNumber";
-    
-    // Prepare the SQL statement
-    $stmt = $pdo->prepare($sql);
+    //1. include dbConnect.php
+    //2. create you SQL query
+    //3. prepare your pdo statement
+    //4. bind variables to the pdo statement, if any
+    //5. execute the pdo statement -run your SQL against the database
+    //6. process the results from the query
 
-    // Bind the hardcoded event number to the SQL statement
-    $stmt->bindParam(':eventNumber', $eventNumber, PDO::PARAM_INT);
+//always the way to do it
 
-    // Execute the statement
-    $stmt->execute();
+try{
+    require 'dbConnect.php';   //access to database
 
-    // Fetch the result
-    $event = $stmt->fetch(PDO::FETCH_ASSOC);
+    //hard coded -cant change it
+    //$sql = "SELECT events_name, events_description FROM wdv341_events WHERE events_id = 1";
 
-    // Check if an event was found
-    if ($event) {
-        // Display the event in a table-like format
-        echo "<h1>Event Details</h1>";
-        echo "<table border='1' cellpadding='10'>";
-        echo "<tr><th>Event ID</th><th>Event Name</th><th>Event Date</th><th>Event Location</th></tr>";
-        echo "<tr>";
-        echo "<td>" . htmlspecialchars($event['event_id']) . "</td>";
-        echo "<td>" . htmlspecialchars($event['event_name']) . "</td>";
-        echo "<td>" . htmlspecialchars($event['event_date']) . "</td>";
-        echo "<td>" . htmlspecialchars($event['event_location']) . "</td>";
-        echo "</tr>";
-        echo "</table>";
-    } else {
-        // Display a message if no events were found
-        echo "<p>No event found with the event number: " . htmlspecialchars($eventNumber) . ".</p>";
-    }
-} catch (PDOException $e) {
-    // Handle any errors
-    echo "<p>Failed to retrieve event: " . $e->getMessage() . "</p>";
+    //pass parameter
+    $sql = "SELECT events_name, events_description FROM wdv341_events WHERE events_id = :eventsID"; //named parameter
+
+    $stmt = $conn->prepare($sql); //prepared statement PDO
+
+    //bind parameters
+    $eventsID = 2;
+    $stmt->bindParam(":eventsID",$eventsID);
+
+    $stmt->execute(); //execute the PDO prepared statement, save results in $stmt object
+
+    $stmt->setFetchMode(PDO::FETCH_ASSOC); // return values as an ASSOC array
 }
+catch(PDOException $e){
+    echo "Database Failed: " . $e->getMessage(); //this will display if an error happens during connection
+}
+//$eventRecord = $stmt->fetch(); //return first row of the result - ASSOC array
+
+//echo "<p>" . $eventRecord["events_name"] . "</p>";
+//echo "<p>" . $eventRecord["events_description"] . "</p>";
+
 ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>WDV 341 Introduction to PHP</h1>
+    <h2>Assignment 7-2 selectOneEvent.php</h2>
+
+    <table>
+        <tr>
+            <th>Event Name</th>
+            <th>Event Description</th>
+        </tr>
+        <?php 
+            //loop the processes database result and outputs content as HTML table
+            while($eventRow = $stmt->fetch()){
+                echo "<tr>";
+                echo "<td>" . $eventRow["events_name"] . "</td>";
+                echo "<td>" . $eventRow["events_description"] . "</td>";
+                echo "</tr>";
+            }
+        ?>  
+    </table>  
+</body>
+</html>
