@@ -11,22 +11,26 @@
 
 //always the way to do it
 
-require 'dbConnect.php';   //access to database
+try{
+    require 'dbConnect.php';   //access to database
 
-$sql = "SELECT events_name, events_description FROM wdv341_events";
+    $sql = "SELECT events_name, events_description FROM wdv341_events";
 
-$stmt = $conn->prepare($sql); //prepared statement PDO
+    $stmt = $conn->prepare($sql); //prepared statement PDO
 
-//bind parameters= n/a
+    //bind parameters= n/a
 
-$stmt->execute(); //execute the PDO prepared statement, save results in $stmt object
+    $stmt->execute(); //execute the PDO prepared statement, save results in $stmt object
 
-$result = $stmt->setFetchMode(PDO::FETCH_ASSOC); // return values as an ASSOC array
+    $stmt->setFetchMode(PDO::FETCH_ASSOC); // return values as an ASSOC array
+}
+catch(PDOException $e){
+    echo "Database Failed: " . $e->getMessage(); //this will display if an error happens during connection
+}
+//$eventRecord = $stmt->fetch(); //return first row of the result - ASSOC array
 
-//$user = $stmt->fetch(); //return first row of the result - ASSOC array
-
-//echo "<p>" . $user["events_name"] . "</p>";
-//echo "<p>" . $user["events_description"] . "</p>";
+//echo "<p>" . $eventRecord["events_name"] . "</p>";
+//echo "<p>" . $eventRecord["events_description"] . "</p>";
 
 ?>
 <!DOCTYPE html>
@@ -40,13 +44,20 @@ $result = $stmt->setFetchMode(PDO::FETCH_ASSOC); // return values as an ASSOC ar
     <h1>WDV 341 Introduction to PHP</h1>
     <h2>Assignment 7-1 selectEvents.php</h2>
 
-    <?php 
-    //loop the processes database result and outputs content as HTML table
-
-    while($eventRow = $stmt->fetch()){
-        echo "<td>" . $eventRow["events_name"] . "</td>";
-    }
-
-    ?>    
+    <table>
+        <tr>
+            <th>Event Name</th>
+            <th>Event Description</th>
+        </tr>
+        <?php 
+            //loop the processes database result and outputs content as HTML table
+            while($eventRow = $stmt->fetch()){
+                echo "<tr>";
+                echo "<td>" . $eventRow["events_name"] . "</td>";
+                echo "<td>" . $eventRow["events_description"] . "</td>";
+                echo "</tr>";
+            }
+        ?>  
+    </table>  
 </body>
 </html>
