@@ -1,5 +1,4 @@
 <?php
-
 //to connect to a database these are the steps: (algorithm)
 
     //1. include dbConnect.php
