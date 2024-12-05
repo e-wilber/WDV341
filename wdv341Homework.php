@@ -139,7 +139,7 @@
         
         <h3><strong>Unit 8</strong></h3>
         <ul>
-            <li class="links"><a href="deliverEventObject.php">8-1: PHP-JSON Event Object</li>
+            <li class="links"><a href="EventTest.php">8-1: PHP-JSON Event Object</li>
         </ul>
 
         <h3><strong>Unit 9</strong></h3>
