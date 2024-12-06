@@ -1,6 +1,6 @@
 <?php
     //This application will access the wdv341 database to get the events data
-    //it will create an Event object using the Event class
+    //it will create a PHP Event object using the Event class
     //it will load the events data into that object
     //Format the Event object into a JSON format
     //echo the object back to the client
@@ -50,8 +50,12 @@
     $eventObject->setEventsDescription( $eventRow["events_description"]);
     $eventObject->setEventsPresenter( $eventRow["events_presenter"]);
 
-    echo "<p>Events ID: " . $eventObject->getEventsID();
-    echo "<p>Events Name: " . $eventObject->getEventsName();
-    echo "<p>Events Description: " . $eventObject->getEventsDescription();
-    echo "<p>Events Presenter: " . $eventObject->getEventsPresenter();
+    //echo "<p>Events ID: " . $eventObject->getEventsID();
+    //echo "<p>Events Name: " . $eventObject->getEventsName();
+    //echo "<p>Events Description: " . $eventObject->getEventsDescription();
+    //echo "<p>Events Presenter: " . $eventObject->getEventsPresenter();
+
+    //convert the $eventObject into a JSON object $eventObjectJSON
+    echo "<br>";
+    echo json_encode($eventObject); //sends JSON object to the response
 ?>
