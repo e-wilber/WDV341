@@ -38,24 +38,43 @@
 
     require 'Events.php'; //gets access to Event class
 
-    $eventObject = new Event(); //create an event object
-    //fetch an event from the result
-    //get each column of data and set it into the eventObject
+    //$eventObject = new Event(); //create an event object
+        //fetch an event from the result
+        //get each column of data and set it into the eventObject
+        //Do this for each event in the database
 
-    //fetch one event from the 
-    $eventRow = $stmt->Fetch(); //this will pull one row from the result set
+        //fetch one event from the 
+    //$eventRow = $stmt->Fetch(); //this will pull one row from the result set
 
-    $eventObject->setEventsID( $eventRow["events_id"]);
-    $eventObject->setEventsName( $eventRow["events_name"]);
-    $eventObject->setEventsDescription( $eventRow["events_description"]);
-    $eventObject->setEventsPresenter( $eventRow["events_presenter"]);
+    $eventArray = [];   //array to store event objects
 
+    //gets all of the rows from the database
+    while( $eventRow = $stmt->fetch()){
+        $eventObject = new Event(); //creates new event objects for each event
+
+        $eventObject->setEventsID( $eventRow["events_id"]);
+        $eventObject->setEventsName( $eventRow["events_name"]);
+        $eventObject->setEventsDescription( $eventRow["events_description"]);
+        $eventObject->setEventsPresenter( $eventRow["events_presenter"]);
+
+        //add the object to an array
+        array_push($eventArray,$eventObject);
+    } 
+
+    
+
+        //testing output
     //echo "<p>Events ID: " . $eventObject->getEventsID();
     //echo "<p>Events Name: " . $eventObject->getEventsName();
     //echo "<p>Events Description: " . $eventObject->getEventsDescription();
     //echo "<p>Events Presenter: " . $eventObject->getEventsPresenter();
+    echo "<br>";
 
     //convert the $eventObject into a JSON object $eventObjectJSON
-    echo "<br>";
-    echo json_encode($eventObject); //sends JSON object to the response
+
+    echo json_encode($eventArray); 
+
+    //echo json_encode($eventObject); //sends JSON object to the response
+    //echo "<br>";
+    //echo $eventObject; //cannot read PHP object,fatal errors
 ?>
