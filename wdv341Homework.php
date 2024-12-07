@@ -139,13 +139,13 @@
         
         <h3><strong>Unit 8</strong></h3>
         <ul>
-            <li class="links"><a href="EventTest.php">8-1: PHP-JSON Event Object</li>
+            <li class="links"><a href="unit8-1FormatJSON.php">8-1: PHP-JSON Event Object</li>
         </ul>
 
         <h3><strong>Unit 9</strong></h3>
         <ul>
-            <li>PROJECT: PHP Formatted Dynamic Output</li>
-            <li>9-1: Input Form Events and INSERT into database</li>
+            <li class="links"><a href="formatted-products/formatted-products/retail-products.php">PROJECT: PHP Formatted Dynamic Output</li>
+            <li class="links"><a href="importFormEvents/eventInputForm.html">9-1: Input Form Events and INSERT into database</li>
         </ul>
 
         <h3><strong>Unit 10</strong></h3>
