@@ -8,7 +8,16 @@
         //4. bind variables to the pdo statement, if any
         //5. execute the pdo statement -run your SQL against the database
         //6. process the response back to the client
+
+    $eventsName = $_POST['events_name'];                //get the data from the form into a php variable
+    $eventsDescription = $_POST['events_description'];
+    $eventsPresenter = $_POST['events_presenter'];
+    $eventsDate = $_POST['events_date'];
+    $eventsTime = $_POST['events_time'];         //default is 24 hours
+             
+    $today = date_format(date_create(), "Y-m-d");
         
+    $eventsDateInserted = ""; //needs formatted YYY-MM-DD
     try {
         require 'dbConnect.php';    //Connects to the database
         
@@ -31,9 +40,7 @@
                 events_time,
                 events_date_inserted,
                 events_date_updated
-                )";
-        
-        
+                )";       
         $sql .= "VALUES (
                 :eventsName, 
                 :eventsDescription,
@@ -42,7 +49,7 @@
                 :eventsTime,
                 :eventsDateInserted,
                 :eventsDateUpdated
-                )";                 //named parameter
+                )";                
         
             //Prepared statement PDO
             $stmt = $conn->prepare($sql);
