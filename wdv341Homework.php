@@ -145,14 +145,14 @@
         <h3><strong>Unit 9</strong></h3>
         <ul>
             <li class="links"><a href="formatted-products/formatted-products/retail-products.php">PROJECT: PHP Formatted Dynamic Output</li>
-            <li class="links"><a href="importFormEvents/eventInputForm.html">9-1: Input Form Events and INSERT into database</li>
+            <li class="links"><a href="eventInputForm.php">9-1: Input Form Events and INSERT into database</li>
         </ul>
 
         <h3><strong>Unit 10</strong></h3>
         <ul>
-            <li>10-1: Create event_user table</li>
-            <li>10-2: Create a login.php page</li>
-            <li>10-3: Create a logout.php page</li>
+            <li class="links"><a href="login.php">10-1: Create event_user table</li>
+            <li class="links"><a href="login.php">10-2: Create a login.php page</li>
+            <li class="links"><a href="logout.php">10-3: Create a logout.php page</li>
         </ul>
 
         <h3><strong>Unit 11</strong></h3>
