@@ -1,4 +1,6 @@
 <?php
+    session_start();
+    
 //destroy session
     session_unset();    //remove session variables
     session_destroy();  //remove the session
