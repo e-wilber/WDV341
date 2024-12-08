@@ -72,6 +72,12 @@ else{
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        .errorMsg{
+            color:red;
+            font-style: italic;
+        }
+    </style>
 </head>
 <body>
     <h1>Introduction to PHP</h1>
@@ -93,9 +99,11 @@ else{
             <!--this displays when user asks to login to application -->
             <h2>Login Form</h2>
             <form method="post" action="login.php">
-                <?php
-                    echo $errorMsg;     //invalid user error message
-                ?>
+                <div class="errorMsg">
+                    <?php
+                        echo $errorMsg;     //invalid user error message
+                    ?>
+                </div>
                 <p>
                     <label for="inUsername">Username: </label>
                     <input type="text" name="inUsername" id="inUsername">
