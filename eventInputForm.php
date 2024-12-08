@@ -1,9 +1,8 @@
 <?php
-session_start();
-//Only allow a valid user access to this page
-if ($_SESSION['validUser'] !== "yes") {
-	header('Location: login.php');
-}
+    session_start();    //access to current session or starts new one if needed
+    if ($_SESSION['validSession'] !== "yes") {
+        header('Location: login.php');
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
