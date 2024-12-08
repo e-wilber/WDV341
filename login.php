@@ -1,4 +1,5 @@
 <?php
+$errorMsg = "";
 //check if form was submitted or needs displayed to the customer
 if( isset($_POST["submit"])){
     //did the user submit the signon form? then
@@ -16,8 +17,8 @@ if( isset($_POST["submit"])){
         display login form
     } 
     */
-    $username = $_POST['inUsername'];   //pull username from form (case sensitive)
-    $password = $_POST['inPassword'];   //pull password
+    $inUsername = $_POST['inUsername'];   //pull username from form (case sensitive)
+    $inPassword = $_POST['inPassword'];   //pull password
 
     //connect to database
     try {
@@ -25,17 +26,33 @@ if( isset($_POST["submit"])){
         
         //does the username and password match the one in the database?
         //SELECT for a specific set of data using WHERE
-        $sql = "SELECT user_username, user_password FROM wdv341_users WHERE user_username = :username AND user_password = :password";                   
+        //$sql = "SELECT user_username, user_password FROM wdv341_users WHERE user_username = :username AND user_password = :password";    
+        
+        $sql = "SELECT COUNT(*) FROM wdv341_users WHERE user_username = :username AND user_password = :password";
         
         //Prepared statement PDO
         $stmt = $conn->prepare($sql);
         
         //Bind Parameters
-        $stmt->bindParam(":username", $username);
-        $stmt->bindParam(":password", $password);
+        $stmt->bindParam(":username", $inUsername);
+        $stmt->bindParam(":password", $inPassword);
         
         //Executes the PDO Statement and saves results in $stmt object
         $stmt->execute();
+
+        $rowCount = $stmt->fetchColumn();
+
+        if($rowCount > 0){
+            //its a user listed in the database
+            //echo "<h3>Login Successful</h3>";
+            $validUser = true;  //switch aka flag
+        }
+        else{
+            //invalid
+            //echo "<h3>NOT A VALID USER OR PASSWORD</h3>";
+            $validUser = false;
+            $errorMsg = "Invalid username or password. Enter again.";
+        }
         
         //Process the results from the query
         $stmt->setFetchMode(PDO::FETCH_ASSOC);  //return values as an ASSOC array
@@ -61,7 +78,7 @@ else{
     <h2>Login Example Page</h2>
 
     <?php
-        if( isset($_POST['submit'])){   //isset istead of "( $_POST["submit"] == "Submit")"
+        if( isset($_POST['submit']) && $validUser===true){   //isset istead of "( $_POST["submit"] == "Submit")"
             //display ADMIN
     ?>
         <section class="adminPage">
@@ -76,7 +93,9 @@ else{
             <!--this displays when user asks to login to application -->
             <h2>Login Form</h2>
             <form method="post" action="login.php">
-
+                <?php
+                    echo $errorMsg;     //invalid user error message
+                ?>
                 <p>
                     <label for="inUsername">Username: </label>
                     <input type="text" name="inUsername" id="inUsername">
