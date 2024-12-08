@@ -5,7 +5,7 @@ $errorMsg = "";
 
 //check if form was submitted or needs displayed to the customer
 
-if( $_SESSION['validSession'] === "yes"){
+if( isset( $_SESSION['validSession']) && $_SESSION['validSession'] === "yes"){
     //if you are a validSession then you should see admin page and stay signed on 
     $validUser = true;  //sets valid user to display the admin page
 }
