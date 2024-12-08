@@ -1,4 +1,8 @@
 <?php
+session_start();    //access to current session or starts new one if needed
+if ($_SESSION['validSession'] !== "yes") {
+	header('Location: login.php');
+}
     //to connect to a database these are the steps: (algorithm)
 
     //a. get the form data from the $_POST into variables
@@ -17,7 +21,7 @@
              
     $today = date_format(date_create(), "Y-m-d");
         
-    $eventsDateInserted = ""; //needs formatted YYY-MM-DD
+    $eventsDateInserted = ""; //needs formatted YYYY-MM-DD
     try {
         require 'dbConnect.php';    //Connects to the database
         
@@ -40,7 +44,8 @@
                 events_time,
                 events_date_inserted,
                 events_date_updated
-                )";       
+                )";    
+
         $sql .= "VALUES (
                 :eventsName, 
                 :eventsDescription,
@@ -67,7 +72,8 @@
             $stmt->execute();
         
             //Process the results from the query
-            $stmt->setFetchMode(PDO::FETCH_ASSOC);
+            $stmt->setFetchMode(PDO::FETCH_ASSOC);  //return values as an ASSOC array
+
         } catch (PDOException $e) {
             echo "Database Failed: " . $e->getMessage();
         }
