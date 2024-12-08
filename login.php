@@ -89,7 +89,14 @@ else{
     ?>
         <section class="adminPage">
             <!--displays to a VALID user after logining in -->
-            <h2>Admin Page</h2>
+            <h1>Admin Page</h1>
+            <h3>OPTIONS</h3>
+
+            <ol>
+                <li><a href="eventInputForm.html">Add New Event</li>
+                <li><a href="selectEvents.php">Display Events</li>
+                <li><a href="logout.php">Logout</li>
+            </ol>
         </section>
     <?php
         }
