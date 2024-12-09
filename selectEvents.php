@@ -1,56 +1,36 @@
 <?php
-//to connect to a database these are the steps: (algorithm)
+// Include database connection and prepare SELECT query
+try {
+    require 'dbConnect.php';
 
-    //1. include dbConnect.php
-    //2. create you SQL query
-    //3. prepare your pdo statement
-    //4. bind variables to the pdo statement, if any
-    //5. execute the pdo statement -run your SQL against the database
-    //6. process the results from the query
-
-//always the way to do it
-
-try{
-    require 'dbConnect.php';   //access to database
-
-    $sql = "SELECT events_name, events_description FROM wdv341_events";
-
-    $stmt = $conn->prepare($sql); //prepared statement PDO
-
-    //bind parameters= n/a
-
-    $stmt->execute(); //execute the PDO prepared statement, save results in $stmt object
-
-    $stmt->setFetchMode(PDO::FETCH_ASSOC); // return values as an ASSOC array
+    $sql = "SELECT events_id, events_name, events_description FROM wdv341_events"; // Include events_id for deletion
+    $stmt = $conn->prepare($sql);
+    $stmt->execute();
+    $stmt->setFetchMode(PDO::FETCH_ASSOC);
+} catch (PDOException $e) {
+    echo "Database Failed: " . $e->getMessage();
+    exit;
 }
-catch(PDOException $e){
-    echo "Database Failed: " . $e->getMessage(); //this will display if an error happens during connection
-}
-//$eventRecord = $stmt->fetch(); //return first row of the result - ASSOC array
-
-//echo "<p>" . $eventRecord["events_name"] . "</p>";
-//echo "<p>" . $eventRecord["events_description"] . "</p>";
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Events</title>
     <link href="style.css" rel="stylesheet">
     <style>
-        button{
-            color:red;
-            border-color:red;
+        button {
+            color: red;
+            border-color: red;
         }
-        table, td{
+        table, td {
             border: solid black;
         }
     </style>
 </head>
 <body>
-    <div class>
+    <div>
         <header>
             <h1>EVENTS</h1>
         </header>
@@ -58,17 +38,23 @@ catch(PDOException $e){
             <tr>
                 <th>Name</th>
                 <th>Description</th>
+                <th>Action</th>
             </tr>
             <?php 
-                //loop the processes database result and outputs content as HTML table
-                while($eventRow = $stmt->fetch()){
-                    echo "<tr>";
-                    echo "<td>" . $eventRow["events_name"] . "</td>";
-                    echo "<td>" . $eventRow["events_description"] . "</td>";
-                    echo "<td><button>DELETE</button></td>";
-                    echo "</tr>";
-                }
-            ?>  
+            // Loop through the query result and output as HTML table htmlspecialchars to protect against attackes
+            while ($eventRow = $stmt->fetch()) {
+                echo "<tr>";
+                echo "<td>" . htmlspecialchars($eventRow["events_name"]) . "</td>";
+                echo "<td>" . htmlspecialchars($eventRow["events_description"]) . "</td>";
+                echo "<td>
+                        <form action='deleteEvent.php' method='POST'>
+                            <input type='hidden' name='eventsID' value='" . htmlspecialchars($eventRow["events_id"]) . "'>
+                            <button type='submit'>DELETE</button>
+                        </form>
+                      </td>";
+                echo "</tr>";
+            }
+            ?>
         </table>  
     </div>
 </body>
