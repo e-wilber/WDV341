@@ -41,7 +41,7 @@ try {
                 <th>Action</th>
             </tr>
             <?php 
-            // Loop through the query result and output as HTML table htmlspecialchars to protect against attackes
+            // Loop through the query result and output as HTML table
             while ($eventRow = $stmt->fetch()) {
                 echo "<tr>";
                 echo "<td>" . htmlspecialchars($eventRow["events_name"]) . "</td>";
