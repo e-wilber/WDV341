@@ -1,15 +1,14 @@
 <?php
-// Include database connection and prepare SELECT query
-try {
-    require 'dbConnect.php';
+session_start();
+require 'dbConnect.php';
 
-    $sql = "SELECT events_id, events_name, events_description FROM wdv341_events"; // Include events_id for deletion
+try {
+    $sql = "SELECT events_id, events_name, events_description FROM wdv341_events";
     $stmt = $conn->prepare($sql);
     $stmt->execute();
     $stmt->setFetchMode(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
     echo "Database Failed: " . $e->getMessage();
-    exit;
 }
 ?>
 <!DOCTYPE html>
@@ -20,42 +19,50 @@ try {
     <title>Events</title>
     <link href="style.css" rel="stylesheet">
     <style>
-        button {
-            color: red;
-            border-color: red;
-        }
-        table, td {
-            border: solid black;
-        }
+        .success { color: green; }
+        .error { color: red; }
     </style>
 </head>
 <body>
-    <div>
-        <header>
-            <h1>EVENTS</h1>
-        </header>
-        <table>
-            <tr>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Action</th>
-            </tr>
-            <?php 
-            // Loop through the query result and output as HTML table
-            while ($eventRow = $stmt->fetch()) {
-                echo "<tr>";
-                echo "<td>" . htmlspecialchars($eventRow["events_name"]) . "</td>";
-                echo "<td>" . htmlspecialchars($eventRow["events_description"]) . "</td>";
-                echo "<td>
-                        <form action='deleteEvent.php' method='POST'>
-                            <input type='hidden' name='eventsID' value='" . htmlspecialchars($eventRow["events_id"]) . "'>
-                            <button type='submit'>DELETE</button>
-                        </form>
-                      </td>";
-                echo "</tr>";
-            }
-            ?>
-        </table>  
-    </div>
+    <h1>Events</h1>
+    
+    <?php
+    // Display any success or error messages
+    if (isset($_SESSION['message'])) {
+        $message_type = $_SESSION['message_type']; // "success" or "error"
+        echo "<p class='{$message_type}'>{$_SESSION['message']}</p>";
+        unset($_SESSION['message']);
+        unset($_SESSION['message_type']);
+    }
+    ?>
+
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Action</th>
+        </tr>
+        <?php while ($row = $stmt->fetch()): ?>
+        <tr>
+            <td><?= htmlspecialchars($row['events_name']); ?></td>
+            <td><?= htmlspecialchars($row['events_description']); ?></td>
+            <td>
+                <!-- Wrap each button in a form with a hidden HoneyPot input -->
+                <form onsubmit="return confirmDelete();" action="deleteEvent.php" method="GET">
+                    <input type="hidden" name="id" value="<?= $row['events_id']; ?>">
+                    <input type="text" name="honeypot" style="display:none;" autocomplete="off">
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+        <?php endwhile; ?>
+    </table>
+
+    <script>
+        // Confirmation prompt before deleting
+        function confirmDelete() {
+            return confirm("Are you sure you want to delete this event?");
+        }
+    </script>
 </body>
 </html>
