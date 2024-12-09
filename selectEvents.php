@@ -38,25 +38,38 @@ catch(PDOException $e){
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link href="style.css" rel="stylesheet">
+    <style>
+        button{
+            color:red;
+            border-color:red;
+        }
+        table, td{
+            border: solid black;
+        }
+    </style>
 </head>
 <body>
-    <h1>WDV 341 Introduction to PHP</h1>
-    <h2>Assignment 7-1 selectEvents.php</h2>
-
-    <table>
-        <tr>
-            <th>Event Name</th>
-            <th>Event Description</th>
-        </tr>
-        <?php 
-            //loop the processes database result and outputs content as HTML table
-            while($eventRow = $stmt->fetch()){
-                echo "<tr>";
-                echo "<td>" . $eventRow["events_name"] . "</td>";
-                echo "<td>" . $eventRow["events_description"] . "</td>";
-                echo "</tr>";
-            }
-        ?>  
-    </table>  
+    <div class>
+        <header>
+            <h1>EVENTS</h1>
+        </header>
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+            </tr>
+            <?php 
+                //loop the processes database result and outputs content as HTML table
+                while($eventRow = $stmt->fetch()){
+                    echo "<tr>";
+                    echo "<td>" . $eventRow["events_name"] . "</td>";
+                    echo "<td>" . $eventRow["events_description"] . "</td>";
+                    echo "<td><button>DELETE</button></td>";
+                    echo "</tr>";
+                }
+            ?>  
+        </table>  
+    </div>
 </body>
 </html>
