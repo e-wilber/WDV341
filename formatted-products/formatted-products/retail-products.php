@@ -1,9 +1,28 @@
+<?php
+
+    try {
+        require 'dbConnect.php';
+
+        $sql = "SELECT product_name, product_description, product_price, product_image, product_inStock, product_status, product_update_date FROM wdv341_products ORDER BY product_name DESC";
+
+        $stmt = $conn->prepare($sql);
+
+        $stmt->execute();
+
+        $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+    }
+    catch (PDOException $e) {
+        $message = "There has been a error. Please try again later.";
+        echo "<h1>$message</h1>";
+    }
+
+?>
 <!doctype html>
 <html>
 
 <head>
     <meta charset="utf-8">
-    <title>Untitled Document</title>
+    <title>DMACC ELECTRONICS</title>
     <link rel="preconnect" href="https://fonts.gstatic.com">
 	<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
     <style>
@@ -15,27 +34,32 @@
 
 <body>
     <header>
-        <h1>DMACC Electronics Store!</h1>
+        <h1>DMACC ELECTRONICS</h1>
         <p>Products for your Home and School Office</p>
     </header>
     <section>
-        <!-- This .productBlock is an example displaying the format/structure of each product.
-        It will be replaced by the actual data. Please loop through all of your products and display them using
-        this layout and following the instructions of the assignment. -->
-
-        <div class="productBlock">
-            <div class="productImage">
-                <image src="productImages/monitor.jpg">
-            </div>
-            <p class="productName">New 27" Monitor</p>
-            <p class="productDesc">This is a new monitor. Available for desktop uses. A good choice for home office and school work.</p>
-            <p class="productPrice">$159.00</p>
-            <!-- The productStatus element should only be displayed if there is product_status data in the record -->
-            <p class="productStatus">New Item!</p>            
-            <p class="productInventory"># In Stock!</p>
-        </div>
+        <?php
+            while ($row = $stmt->fetch()) {
+                ?>
+                <div class="productBlock">
+                    <div class="productImage">
+                        <img src="productImages/<?php echo $row["product_image"]; ?>">
+                    </div>
+                    <p class="productName"><?php echo $row["product_name"]; ?></p>
+                    <p class="productDesc"><?php echo $row["product_description"]; ?></p>
+                    <p class="productPrice">$<?php echo $row["product_price"]; ?></p>
+                    <!-- The productStatus only be displayed if there is product_status data in record -->
+                    <p class="productStatus"><?php if ($row["product_status"] != null) {
+                            echo $row["product_status"];
+                        } ?></p>
+                    <p class="productInventory <?php if ($row['product_inStock'] <= 10) {
+                        echo 'productLowInventory';
+                    } ?>">In Stock!</p>
+                </div>
+                <?php
+            }
+        ?>
     </section>
-
 </body>
 
 </html>
