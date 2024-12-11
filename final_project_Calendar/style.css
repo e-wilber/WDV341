@@ -1,0 +1,176 @@
+
+*{
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+header {
+    text-align: center;
+    color: rgb(255, 255, 255);
+    background-size: 1024px;
+    background-color: black;
+    padding: 250px 0;
+}
+
+header .container{
+    background-color: royalblue;
+    
+}
+
+header h1 {
+    font-family: '20_dbregular';
+    text-align: center;
+    font-weight: bold;
+    font-size: 4rem;
+    color: var(--header);
+    text-shadow: 2px 2px 4px #000000;
+    text-transform: capitalize;
+}
+
+.text-start header {
+    text-align: center;
+}
+
+section {
+    color: white;
+    background-color: rgb(204, 204, 204);
+    padding: 50px 0;
+}
+
+footer {
+    color: white;
+    text-align: center;
+}
+
+body {
+    max-width: 1024px;
+    margin: 0 auto;
+    color: black;
+    background-color:gray;
+    box-shadow: 0 2px 5px 8px rgba(0, 0, 0, 0.666);
+}
+
+.modal-title {
+    color: black;
+}
+
+.modal-body {
+    color: black;
+}
+
+.modal-body img{
+    align-items: center;
+}
+
+.blue-txt {
+    color: royalblue;
+}
+
+.brown-txt {
+    color: rgb(91, 53, 53);
+}
+
+.black-txt {
+    color: royalblue;
+    background-color: lightgray;
+}
+
+.hours {
+    color: royalblue;
+    text-align: center;
+}
+
+.hours ul {
+    text-align: center;
+}
+
+h2{
+    text-transform: uppercase;
+}
+
+p {
+    font-size: 1.2rem;
+}
+
+img {
+    width: 100%;
+}
+
+ul {
+    text-align: left;
+    padding-left: 0;
+}
+
+li {
+    text-decoration: none;
+    list-style: none;
+    font-size: 1.1rem;
+    line-height: 2rem;
+}
+
+.links {
+    color: rgba(0, 0, 0, 0.33);
+    text-decoration: none;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+nav a:link, nav a:visited{
+    color: royalblue;
+    text-decoration: none;
+    margin-right: 15px;
+}
+
+nav a:hover, nav a:focus {
+    color: white;
+}
+
+.nav-item a:hover{
+    color: white;
+}
+
+.links a:hover{
+    color: white;
+}
+
+.img-thumbnail {
+    background-color: rgb(91, 53, 53);
+}
+
+.form-group{
+    margin-bottom: 15px;
+}
+
+input[type=text], textarea, input[type=email]{
+    border-radius: 4px;
+    border: 1px solid darkgray;
+}
+
+input[type=submit], input[type=reset] {
+    background-color: rgb(45, 45, 45);
+    color: white;
+    border-radius: 14px;
+    padding: 10px;
+    margin-bottom: 20px;
+    text-transform: capitalize;
+}
+
+input[type=submit]{
+    margin-right: 15px;
+}
+
+.col-sm-6 form {
+    background-color: royalblue;
+    align-items: center;
+}
+
+.col-sm-6 form label, .col-sm-6 form input, .col-sm-6 form textarea{
+    margin-left: 15px;
+}
+
+.col-sm-6 form h3{
+    padding: 30px;
+}
+
+.col-sm-6 form textarea{
+    max-width: 220px;
+    max-height: 75px;
+}
