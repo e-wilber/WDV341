@@ -19,7 +19,7 @@ $eventsIDPost = $_POST['events_id'];
 $update_date = date_format(date_create(), "Y-m-d"); 
 
 try {
-    //#1
+    
     require 'dbConnect.php';      
 
     $sql = "UPDATE wdv341_events 
