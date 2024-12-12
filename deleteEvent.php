@@ -1,41 +1,36 @@
 <?php
+
+//protect page from unwanted activity
 session_start();
-require 'dbConnect.php';
-
-// Validate HoneyPot
-if (!empty($_GET['honeypot'])) {
-    $_SESSION['message'] = "Delete failed due to invalid submission.";
-    $_SESSION['message_type'] = "error";
-    header("Location: selectEvents.php");
-    exit;
+if ($_SESSION['validUser'] !== "valid") {
+    header("Location: login.php");     
 }
 
-// Ensure the event ID is valid
-if (isset($_GET['id']) && is_numeric($_GET['id'])) {
-    $eventID = (int)$_GET['id'];
+$eventsID = $_GET["eventsID"];
 
-    try {
-        $sql = "DELETE FROM wdv341_events WHERE events_id = :eventID";
-        $stmt = $conn->prepare($sql);
-        $stmt->bindParam(":eventID", $eventID);
+try {
+    //#1 Connect to the database
+    require 'dbConnect.php';        
 
-        if ($stmt->execute()) {
-            $_SESSION['message'] = "Event deleted successfully.";
-            $_SESSION['message_type'] = "success";
-        } else {
-            $_SESSION['message'] = "Failed to delete the event.";
-            $_SESSION['message_type'] = "error";
-        }
-    } catch (PDOException $e) {
-        $_SESSION['message'] = "Database error: " . $e->getMessage();
-        $_SESSION['message_type'] = "error";
-    }
-} else {
-    $_SESSION['message'] = "Invalid event ID.";
-    $_SESSION['message_type'] = "error";
+    // SQL query
+    $sql = "DELETE FROM wdv341_events WHERE events_id = :eventsID";
+    
+    //Prepared statement PDO 
+    $stmt = $conn->prepare($sql);      
+
+    //Bind Variables to the PDO Statement
+    $stmt ->bindParam(":eventsID", $eventsID);
+
+    //Execute the PDO Statement
+    $stmt->execute(); 
+
+    //Process the results from the query
+    $stmt->setFetchMode(PDO::FETCH_ASSOC);        
+
+} catch (PDOException $e) {
+    echo "Database Failed: " . $e->getMessage();
 }
 
-// Redirect back to the events page
 header("Location: selectEvents.php");
-exit;
+
 ?>
