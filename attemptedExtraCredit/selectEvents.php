@@ -32,29 +32,7 @@ try {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link href="style.css" rel="stylesheet">
-    <style>
-        table {
-            table-layout: fixed;
-            width: 100%;
-        }
-
-        table,
-        td {
-            border: thin solid black;
-            border-collapse: collapse;
-        }
-
-        td {
-            text-align: left;
-            word-wrap: wordwrap;
-            padding-bottom: 5px;
-            padding-right: 20px;
-        }
-
-        .tableheader {
-            font-weight: bold;
-        }
-    </style>
+    
     <script>
         function confirmDelete(inEventsID) {
             
@@ -78,7 +56,7 @@ try {
             <h1>Edit Calendar</h1>
         </header>
         <nav class="spaced">
-            <li><a href="9-1_InputFormEvents_INSERT/eventInputForm.php">Add New Event</a></li>
+            <li><a href="final_project_Calendar.php/eventInputForm.php">Add New Event</a></li>
             <li><a href="logout.php">Logout</a></li>
         </nav>
         <section class="frame">
